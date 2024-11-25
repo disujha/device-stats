@@ -1,6 +1,6 @@
 {
   "name": "device-stats",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "a capacitor plugin for android device stats",
   "main": "dist/plugin.cjs.js",
   "module": "dist/esm/index.js",
