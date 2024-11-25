@@ -1,3 +1,7 @@
 export interface devicePlugin {
-  echo(options: { value: string }): Promise<{ value: string }>;
+  getDeviceStats(): Promise<{
+    totalRAM: number;
+    totalStorage: number;
+    freeStorage: number;
+  }>;
 }

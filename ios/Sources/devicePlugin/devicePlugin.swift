@@ -6,18 +6,25 @@ import Capacitor
  * here: https://capacitorjs.com/docs/plugins/ios
  */
 @objc(devicePlugin)
-public class devicePlugin: CAPPlugin, CAPBridgedPlugin {
-    public let identifier = "devicePlugin"
-    public let jsName = "device"
-    public let pluginMethods: [CAPPluginMethod] = [
-        CAPPluginMethod(name: "echo", returnType: CAPPluginReturnPromise)
-    ]
-    private let implementation = device()
+public class devicePlugin: CAPPlugin {
+    @objc func getDeviceStats(_ call: CAPPluginCall) {
+        let totalRAM = ProcessInfo.processInfo.physicalMemory
+        let storageInfo = getStorageInfo()
 
-    @objc func echo(_ call: CAPPluginCall) {
-        let value = call.getString("value") ?? ""
-        call.resolve([
-            "value": implementation.echo(value)
-        ])
+        let result: [String: Any] = [
+            "totalRAM": totalRAM,
+            "totalStorage": storageInfo.total,
+            "freeStorage": storageInfo.free
+        ]
+        call.resolve(result)
+    }
+
+    private func getStorageInfo() -> (total: UInt64, free: UInt64) {
+        if let attributes = try? FileManager.default.attributesOfFileSystem(forPath: NSHomeDirectory()) {
+            let total = attributes[.systemSize] as? UInt64 ?? 0
+            let free = attributes[.systemFreeSize] as? UInt64 ?? 0
+            return (total, free)
+        }
+        return (0, 0)
     }
 }
