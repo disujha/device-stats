@@ -1,4 +1,5 @@
-<<<<<<< HEAD
+Get RAM, Total and Free storage device stats (Capacitor Plugin)
+
 =======
 # device-stats
 
