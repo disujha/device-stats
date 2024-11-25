@@ -3,7 +3,7 @@ Get RAM, Total and Free storage device stats (Capacitor Plugin)
 =======
 # device-stats
 
-a capacitor plugin for android device stats
+a capacitor plugin for android and ios device stats
 
 ## Install
 
